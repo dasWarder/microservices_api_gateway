@@ -16,6 +16,7 @@ spring:
           predicates:
             - Path=/users/**
             - Method=GET,POST,PUT,DELETE
+            - Header=Authorization, Bearer (.*)
           filters:
             - RemoveRequestHeader=Cookie
         - id: users-h2-console
