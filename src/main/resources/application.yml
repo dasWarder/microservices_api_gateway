@@ -15,8 +15,23 @@ spring:
           uri: lb://users-ws
           predicates:
             - Path=/users/**
-            - Method=GET,POST,PUT,DELETE
+            - Method=GET,PUT,DELETE
             - Header=Authorization, Bearer (.*)
+          filters:
+            - RemoveRequestHeader=Cookie
+            - AuthorizationHeaderFilter
+        - id: create-user
+          uri: lb://users-ws
+          predicates:
+            - Path=/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+        - id: authorize_user
+          uri: lb://users-ws
+          predicates:
+            - Path=/users/login
+            - Method=POST
           filters:
             - RemoveRequestHeader=Cookie
         - id: users-h2-console
@@ -28,3 +43,6 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:9000/eureka
+
+token:
+  secret: ${JWS_SECRET}
