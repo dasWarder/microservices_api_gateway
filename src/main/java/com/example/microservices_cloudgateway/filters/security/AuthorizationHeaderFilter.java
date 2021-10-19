@@ -1,4 +1,4 @@
-package com.example.microservices_cloudgateway.security;
+package com.example.microservices_cloudgateway.filters.security;
 
 import io.jsonwebtoken.Jwts;
 import org.apache.http.HttpHeaders;
